@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Stock extends Model
 {
@@ -21,4 +22,15 @@ class Stock extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public static function findBySymbol($symbol = '')
+    {
+        $stock = static::where('symbol', strtoupper($symbol))->first();
+
+        if (! $stock) {
+            return null;
+        }
+
+        return $stock;
+    }
 }
