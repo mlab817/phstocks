@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Stock extends Model
 {
@@ -23,14 +23,19 @@ class Stock extends Model
         'deleted_at',
     ];
 
-    public static function findBySymbol($symbol = '')
+    public static function findBySymbol($name = '')
     {
-        $stock = static::where('symbol', strtoupper($symbol))->first();
+        $stock = static::where('symbol', strtoupper($name))->first();
 
         if (! $stock) {
             return null;
         }
 
         return $stock;
+    }
+
+    public function histories(): HasMany
+    {
+        return $this->hasMany(StockHistory::class);
     }
 }

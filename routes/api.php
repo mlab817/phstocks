@@ -18,6 +18,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/stocks/{stock}', function (\App\Models\Stock $stock) {
+    return response()->json($stock->load('histories'));
+});
+
 Route::get('/stocks', function () {
     return response()->json(\App\Models\Stock::all());
 });
+
