@@ -45,6 +45,5 @@ class StockHistoriesTableSeeder extends Seeder
                 DB::table('stock_histories')->insert($d);
             }
         }
-
     }
 }
