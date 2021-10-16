@@ -10,6 +10,8 @@ class Stock extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $casts = [
         'last_traded_date' => 'date:Y-m-d',
         'last_traded_price' => 'float',
@@ -37,5 +39,10 @@ class Stock extends Model
     public function histories(): HasMany
     {
         return $this->hasMany(StockHistory::class);
+    }
+
+    public function market_statistics(): HasMany
+    {
+        return $this->hasMany(MarketStatistic::class);
     }
 }

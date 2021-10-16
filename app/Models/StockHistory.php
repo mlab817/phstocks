@@ -29,17 +29,8 @@ class StockHistory extends Model
         'updated_at',
     ];
 
-    protected $appends = [
-        'pct_volume',
-    ];
-
     public function stock(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Stock::class);
-    }
-
-    public function getPctVolumeAttribute(): float
-    {
-        return number_format(($this->volume / $this->stock->outstanding_shares) * 100, 4);
     }
 }
